@@ -1,0 +1,20 @@
+### Test Local Forecast Endpoint
+
+### An .http file is a plain text file that developers use to define, document, and execute HTTP requests directly
+### inside their code editor. It serves as a lightweight, text-based alternative to GUI-based API testing tools like
+### Postman or Insomnia, allowing you to test REST APIs without leaving your Integrated Development Environment (IDE).
+
+### understanding the line GET http://localhost:8000/get-forecast?lat=43.6615&lon=-70.2553
+### the line is a specific web request sent to your local server to ask for the weather at lat=43.6615 and lon=-70.2553
+### localhost points directly to your own computer and 8000 is the port where FastAPI application is sitting and waiting
+### to listen to messages.
+### /get-forecast is the URL path that tells the FastAPI app exactly which function to execute. in main.py, it matches
+### up with the decorator @app.get("/get-forecast")
+
+### what happens when this command runs?
+### Your FastAPI app wakes up and says: "Aha! Someone wants the forecast for latitude 43.6615 and longitude -70.2553.
+### FastAPI bundles those numbers up and ships them off to the National Weather Service API.The NWS sends back the
+### government weather data for Portland.
+
+GET http://localhost:8000/get-forecast?lat=43.6615&lon=-70.2553
+Accept: application/json

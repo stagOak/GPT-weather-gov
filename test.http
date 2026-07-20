@@ -1,3 +1,0 @@
-### Test Local Forecast Endpoint
-GET http://localhost:8000/get-forecast?lat=43.6615&lon=-70.2553
-Accept: application/json
