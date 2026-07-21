@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+from pathlib import Path
+import json
+from datetime import datetime
 
 app = FastAPI()
 
@@ -22,7 +25,7 @@ HEADERS = {
 @app.get("/get-forecast")
 def get_weather_forecast(lat: float, lon: float):
 
-    # Step 1: Get the Grid ID and Coordinates
+    # get the grid id and coordinates
     points_url = f"{NWS_API_URL}/points/{lat},{lon}"
     response = requests.get(points_url, headers=HEADERS)
 
@@ -36,9 +39,21 @@ def get_weather_forecast(lat: float, lon: float):
     if not forecast_url:
         raise HTTPException(status_code=404, detail="Forecast URL not found.")
 
-    # Step 2: Fetch the actual forecast
+    # fetch the actual forecast
     forecast_response = requests.get(forecast_url, headers=HEADERS)
     if forecast_response.status_code != 200:
         raise HTTPException(status_code=500, detail="Failed to fetch forecast.")
+
+    # save forcast response
+    # get the directory where script is running
+    script_dir = Path(__file__).resolve().parent
+
+    # create the file name and create the file path
+    filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S.json")
+    file_path = script_dir.parent / "data/processed" / filename
+
+    # write the response data
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(forecast_response.json(), file, indent=4)
 
     return forecast_response.json()
