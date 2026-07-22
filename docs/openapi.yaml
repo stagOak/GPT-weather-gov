@@ -1,0 +1,45 @@
+openapi: 3.1.0
+info:
+  title: Weather Forecast Provider
+  description: API for retrieving weather forecast data from weather.gov via a local proxy.
+  version: 1.0.6
+servers:
+  - url: https://gamma-battery-reusable.ngrok-free.dev
+    description: Local Ngrok Proxy Server
+paths:
+  /get-forecast:
+    get:
+      summary: Get weather forecast by coordinates
+      operationId: GetWeatherForecast
+      description: CRITICAL. Use this tool to get real-time weather information. You must always use this tool when weather coordinates are provided.
+      parameters:
+        - name: lat
+          in: query
+          description: The geographic latitude coordinate.
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: lon
+          in: query
+          description: The geographic longitude coordinate.
+          required: true
+          schema:
+            type: number
+            format: float
+      responses:
+        "200":
+          description: Successful response containing weather forecast text.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  verification_signature:
+                    type: string
+                    description: Unique live server runtime timestamp.
+                  periods:
+                    type: array
+                    description: The list of timeline forecast blocks.
+                    items:
+                      type: object
