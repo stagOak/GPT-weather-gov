@@ -116,4 +116,4 @@ The [View GPT] button opens a Weather Resource chat window. Enter the following 
 
 You should get something like this:
 
-<img src="images/weather_resource_prompt and_response.png" alt="Action Test Response" width="40%">
+<img src="images/weather_resource_prompt and_response.png" alt="Example Chat" width="40%">
